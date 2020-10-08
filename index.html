@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Tip Calculator</title>
-    </head>
-    <body>
-        <label for="#input-bill">Bill</label>
-        <input id="#input-bill" value="0.0" type="number">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tip Calculator</title>
+</head>
+
+<body>
+    <main>
+        <h1>Tip Calculator</h1>
+        <label for="input-bill">Bill</label>
+        <input id="input-bill" value="0.0" type="number">
         <br>
-        <label for="#input-tip">Tip Percentage</label>
-        <input id="#input-tip" value="0" type="number">
+
+        <label for="input-tip">Tip Percentage</label>
+        <input id="input-tip" value="0" type="number">
         <br>
-        <label for="#input-people">People</label>
-        <input id="#input-people" value="0" type="number">
 
-        <p id="#display">
+        <label for="input-people">People</label>
+        <input id="input-people" value="0" type="number">
 
+        <p id="display-tip">
+        <p id="display-total">
 
-        <script src="/tip-calculator/script.js"></script>
-    </body>
+            <script>
+                const billInput = document.querySelector("#input-bill");
+                const tipInput = document.querySelector("#input-tip");
+                const peopleInput = document.querySelector("#input-people");
+                const displayTip = document.querySelector("#display-tip");
+                const displayTotal = document.querySelector("#display-total");
+
+                function calculateTotal() {
+                    const billAmount = Number(billInput.value);
+                    const tipAmount = Number(tipInput.value);
+                    const peopleAmount = peopleInput.value;
+                    const tipCalculated = Number((billAmount * tipAmount) / 100);
+
+                    const totalAmount = Number(billAmount + tipCalculated) / peopleAmount;
+
+                    displayTip.innerHTML = `Tip is $${tipCalculated.toFixed(2)}`;
+
+                    if (peopleAmount > 1) {
+                        displayTotal.innerHTML = `Total per person: $${totalAmount.toFixed(2)}`;
+                    } else {
+                        displayTotal.innerHTML = `Total: $${totalAmount.toFixed(2)}`;
+                    }
+                }
+                billInput.addEventListener("input", calculateTotal);
+                tipInput.addEventListener("input", calculateTotal);
+                peopleInput.addEventListener("input", calculateTotal);
+            </script>
+</body>
+
 </html>
